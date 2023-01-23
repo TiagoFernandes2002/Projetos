@@ -1,0 +1,68 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="icon.png" />
+    <None Remove="Images\add.png" />
+    <None Remove="Images\edit.png" />
+    <None Remove="Images\log.png" />
+    <None Remove="Images\reg.png" />
+    <None Remove="Images\user.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NuGet.Protocol" Version="6.2.0" />
+    <PackageReference Include="ReactiveUI.WPF" Version="18.0.10" />
+    <PackageReference Include="Syncfusion.SfSkinManager.WPF" Version="20.1.0.50" />
+    <PackageReference Include="Syncfusion.Shared.WPF" Version="20.1.0.50" />
+    <PackageReference Include="Syncfusion.Themes.FluentDark.WPF" Version="20.1.0.50" />
+    <PackageReference Include="Syncfusion.Themes.FluentLight.WPF" Version="20.1.0.50" />
+    <PackageReference Include="Syncfusion.Tools.WPF" Version="20.1.0.50" />
+    <PackageReference Include="syncfusion.ui.wpf.net" Version="20.1.0.47" />
+</ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Utad.Lab.G04.Domain\Utad.Lab.G04.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Syncfusion.SfSkinManager.WPF">
+      <HintPath>..\..\..\Program Files (x86)\Syncfusion\Essential Studio\WPF\20.1.0.47\precompiledassemblies\net5.0\Syncfusion.SfSkinManager.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Shared.WPF">
+      <HintPath>..\..\..\Program Files (x86)\Syncfusion\Essential Studio\WPF\20.1.0.47\precompiledassemblies\net5.0\Syncfusion.Shared.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Themes.FluentLight.WPF">
+      <HintPath>..\..\..\Program Files (x86)\Syncfusion\Essential Studio\WPF\20.1.0.47\precompiledassemblies\net5.0\Syncfusion.Themes.FluentLight.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Tools.Wpf">
+      <HintPath>..\..\..\Program Files (x86)\Syncfusion\Essential Studio\WPF\20.1.0.47\precompiledassemblies\net5.0\Syncfusion.Tools.WPF.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="icon.png" />
+    <Resource Include="Images\add.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\edit.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\log.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\reg.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\user.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+</Project>

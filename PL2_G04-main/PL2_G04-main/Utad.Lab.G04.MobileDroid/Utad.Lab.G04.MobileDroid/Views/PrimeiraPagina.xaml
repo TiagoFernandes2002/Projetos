@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Utad.Lab.G04.MobileDroid.Views.PrimeiraPagina"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+    xmlns:controls="clr-namespace:Utad.Lab.G04.MobileDroid.Controls"
+    xmlns:effectView="clr-namespace:Syncfusion.XForms.EffectsView;assembly=Syncfusion.Core.XForms"
+    xmlns:viewModel="clr-namespace:Utad.Lab.G04.MobileDroid.ViewModels"
+    x:Name="settingPage"
+    BackgroundColor="{DynamicResource Gray-100}"
+    NavigationPage.HasNavigationBar="False">
+
+    <ContentPage.ControlTemplate>
+        <ControlTemplate>
+            <StackLayout Spacing="0">
+                <!--  Title View  -->
+                <controls:TitleView Title="Menu Principal">
+                </controls:TitleView>
+                <ContentPresenter />
+            </StackLayout>
+        </ControlTemplate>
+    </ContentPage.ControlTemplate>
+
+    <ContentPage.BindingContext>
+        <viewModel:PrimeiraPaginaViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout BackgroundColor="{DynamicResource Gray-100}" Spacing="0">
+
+                <!--  Header label for account setting  -->
+
+                <!--  Grid for Edit profile label and navigation bar icon  -->
+                
+                <!--  Perfil button  -->
+                <buttons:SfButton
+                    x:Name="btnPerfil"
+                    Margin="0,50,0,50"
+                    Command="{Binding PerfilCommand}"
+                    Style="{StaticResource GradientButtonStyle}"
+                    Text="PERFIL 🧑"
+                    WidthRequest="500" 
+                    />
+                    
+                <BoxView Style="{StaticResource HorizontalSeparatorStyle}" />
+               
+                <!--  Listas button  -->
+                <buttons:SfButton
+                    x:Name="btnListas"
+                    Margin="0,50,0,50"
+                    Command="{Binding ListasCommand}"
+                    Style="{StaticResource GradientButtonStyle}"
+                    Text="LISTAS DE COMPRAS 🛒"
+                    WidthRequest="500" 
+                    />
+                <BoxView Style="{StaticResource HorizontalSeparatorStyle}" />
+
+                <!--  Logout button  -->
+                <buttons:SfButton
+                    x:Name="btnLogout"
+                    Margin="0,50,0,50"
+                    Command="{Binding LogoutCommand}"
+                    BackgroundColor="{DynamicResource Gray-100}"
+                    Style="{StaticResource GradientButtonStyle}"
+                    Text="LOG OUT"
+                    WidthRequest="500" 
+                    />
+                <BoxView Style="{StaticResource HorizontalSeparatorStyle}" />
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

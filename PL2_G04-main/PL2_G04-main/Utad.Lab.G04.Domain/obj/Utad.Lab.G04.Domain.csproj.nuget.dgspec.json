@@ -1,0 +1,94 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\VSProjects\\Utad.Lab.G04\\Utad.Lab.G04.Domain\\Utad.Lab.G04.Domain.csproj": {}
+  },
+  "projects": {
+    "C:\\VSProjects\\Utad.Lab.G04\\Utad.Lab.G04.Domain\\Utad.Lab.G04.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\VSProjects\\Utad.Lab.G04\\Utad.Lab.G04.Domain\\Utad.Lab.G04.Domain.csproj",
+        "projectName": "Utad.Lab.G04.Domain",
+        "projectPath": "C:\\VSProjects\\Utad.Lab.G04\\Utad.Lab.G04.Domain\\Utad.Lab.G04.Domain.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "C:\\VSProjects\\Utad.Lab.G04\\Utad.Lab.G04.Domain\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Syncfusion\\Essential Studio\\WPF\\20.1.0.47\\ToolboxNuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Syncfusion Toolbox for WPF.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "targetAlias": "netstandard2.1",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
+          "dependencies": {
+            "ReactiveUI": {
+              "target": "Package",
+              "version": "[18.0.7, )"
+            },
+            "ReactiveUI.Events.WPF": {
+              "target": "Package",
+              "version": "[15.1.1, )"
+            },
+            "ReactiveUI.Fody": {
+              "target": "Package",
+              "version": "[18.0.7, )"
+            },
+            "ReactiveUI.Validation": {
+              "target": "Package",
+              "version": "[2.2.1, )"
+            },
+            "System.ComponentModel.Annotations": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
+            "System.Windows.Interactivity.WPF": {
+              "target": "Package",
+              "version": "[2.0.20525, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

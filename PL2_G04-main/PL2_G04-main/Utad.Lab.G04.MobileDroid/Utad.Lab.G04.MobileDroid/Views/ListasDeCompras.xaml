@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Utad.Lab.G04.MobileDroid.Views.ListasDeCompras"
+             xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+             xmlns:combobox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
+             xmlns:ListCollection="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+                 xmlns:behaviour="clr-namespace:Utad.Lab.G04.MobileDroid.Behaviors"
+    xmlns:border="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+    xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+    xmlns:control="clr-namespace:Utad.Lab.G04.MobileDroid.Controls"
+    xmlns:converter="clr-namespace:Utad.Lab.G04.MobileDroid.Converters"
+    xmlns:core="clr-namespace:Syncfusion.XForms.Core;assembly=Syncfusion.Core.XForms"
+    xmlns:local="clr-namespace:Utad.Lab.G04.MobileDroid.Views" xmlns:local1="clr-namespace:Utad.Lab.G04.MobileDroid.ViewModels"
+             BackgroundColor="{DynamicResource Gray-200}"
+             NavigationPage.HasNavigationBar="False">
+    <ContentPage.BindingContext>
+        <local1:ListasDeComprasViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Margin="17,15,0,0" FontAttributes="Bold"
+                   Text="LISTAS DE COMPRAS 🛒"
+                   TextColor="{StaticResource Gray-White}"
+                   FontSize="Large"
+                   HorizontalTextAlignment="Center">
+            </Label>
+            <syncfusion:SfListView x:Name="lvListas" 
+                    ItemsSource="{Binding Listass}"
+                    ItemSize="150"
+                    SelectionBackgroundColor="{StaticResource Gray-800}"               
+                    SelectionMode="SingleDeselect"
+                    ItemTapped="lvListas_ItemTapped"
+                    SelectedItem="{Binding ListaSelecionada}"               >
+                <syncfusion:SfListView.LayoutManager>
+                    <syncfusion:GridLayout SpanCount="2" />
+                </syncfusion:SfListView.LayoutManager>
+                <syncfusion:SfListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem Text="Editar"  Clicked="btnEditarLista"></MenuItem>
+                                <MenuItem Text="Apagar"  IsDestructive="True" Clicked="btnApagarLista"></MenuItem>
+                            </ViewCell.ContextActions>
+                        
+                            <Grid Padding="10">
+                              <Frame CornerRadius="20" HasShadow="True">
+                                  <StackLayout Orientation="Horizontal">
+                                       <StackLayout VerticalOptions="Center">
+                                            <Label FontSize="Medium"
+                                                   Text="{Binding Descricao}"
+                                                       VerticalOptions="Center"/>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </Frame>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </syncfusion:SfListView.ItemTemplate>
+                
+            </syncfusion:SfListView>
+            <StackLayout Orientation="Vertical" VerticalOptions="EndAndExpand">
+                <StackLayout Orientation="Horizontal">
+                    <buttons:SfButton Style="{DynamicResource GradientButtonStyle}" HorizontalOptions="StartAndExpand" Text="Menu" 
+                                      BorderColor="{StaticResource Gray-White}" Clicked="btnMenu" CornerRadius="15" Margin="10,1,0,0" 
+                                      BorderThickness="1" WidthRequest="80" HeightRequest="50">
+                        
+                    </buttons:SfButton>
+                    <buttons:SfButton BackgroundColor="{StaticResource Gray-100}" BorderColor="{StaticResource Gray-White}" BorderThickness="1" WidthRequest="60" HeightRequest="60" CornerRadius="30"
+                                      Margin="0,0,10,8" HorizontalOptions="EndAndExpand" Clicked="btnCriarLista"                                       
+                                      Text="+"  FontSize="30" TextColor="{StaticResource Gray-White}">
+                    </buttons:SfButton>
+                    
+                    <!-- BackgroundColor="{StaticResource Gray-800}" -->
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Utad.Lab.G04.MobileDroid.Views.Lista"
+             xmlns:behaviour="clr-namespace:Utad.Lab.G04.MobileDroid.Behaviors"
+             xmlns:border="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+             xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             xmlns:control="clr-namespace:Utad.Lab.G04.MobileDroid.Controls"
+             xmlns:converter="clr-namespace:Utad.Lab.G04.MobileDroid.Converters"
+             xmlns:core="clr-namespace:Syncfusion.XForms.Core;assembly=Syncfusion.Core.XForms"
+             xmlns:local="clr-namespace:Utad.Lab.G04.MobileDroid.Views" xmlns:local1="clr-namespace:Utad.Lab.G04.MobileDroid.ViewModels"
+             BackgroundColor="{StaticResource Gray-300}">
+
+    <ContentPage.BindingContext>
+        <local1:ListaViewModel/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.ControlTemplate>
+        <ControlTemplate>
+            <StackLayout x:Name="titleLayout" Spacing="0">
+                <control:TitleView Title="[Nome da Lista]">
+                    <control:TitleView.LeadingView>
+                        <!--  Back button command  -->
+                        <buttons:SfButton x:Name="backButton" Command="{Binding Path=BindingContext.BackButtonCommand}" 
+                                          Text="{StaticResource Back}" CommandParameter="{x:Reference backButton}" 
+                                          Style="{StaticResource IconButtonStyle}"
+                                          Clicked="backButton_Clicked"/>
+
+                    </control:TitleView.LeadingView>
+                </control:TitleView>
+                <ContentPresenter />
+            </StackLayout>
+        </ControlTemplate>
+    </ContentPage.ControlTemplate>
+
+    <ContentPage.Content>
+
+        <StackLayout>
+
+            <ListView x:Name="lvProdutos" ItemsSource="{Binding Produto}" HasUnevenRows="True"
+                      RowHeight="50" SeparatorVisibility="None"
+                      ItemSelected="lvSelected"
+                      >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem Text="Editar"  Clicked="mi_cliked"></MenuItem>
+                                <MenuItem Text="Apagar"  IsDestructive="True"></MenuItem>
+                            </ViewCell.ContextActions>
+                            <Grid Padding="10">
+                                <Frame CornerRadius="20" HasShadow="True">
+                                    <StackLayout Orientation="Horizontal">
+                                        <StackLayout VerticalOptions="Center">
+                                            <Label FontSize="Large"
+                                                   Text="[Nome do Produto]"
+                                                   VerticalOptions="Center"/>
+                                            <Label FontSize="Large"
+                                                     Text="{Binding Quantidade}"
+                                                     VerticalOptions="Center" HorizontalOptions="Start"/>
+                                                
+
+                                            <Label FontSize="Large"
+                                                   Text="{Binding Categoria}"
+                                                   VerticalOptions="Center"/>
+                                            
+                                        </StackLayout>
+                                        <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand">
+                                            <CheckBox IsChecked="False" HorizontalOptions="End" Color="Gray"/>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </Frame>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <StackLayout Orientation="Vertical" VerticalOptions="EndAndExpand">
+                <StackLayout Orientation="Horizontal">
+                    <buttons:SfButton Style="{StaticResource GradientButtonStyle}" CornerRadius="15" 
+                                      Margin="0,0,10,5" HorizontalOptions="CenterAndExpand" Text="Adicionar Item" 
+                                      Clicked="Button_Clicked"></buttons:SfButton>
+                    <!-- BackgroundColor="{StaticResource Gray-800}" -->
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

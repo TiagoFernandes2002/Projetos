@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Utad.Lab.G04.MobileDroid.Views.NovoProduto"
+             xmlns:combobox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
+             xmlns:ListCollection="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+                 xmlns:behaviour="clr-namespace:Utad.Lab.G04.MobileDroid.Behaviors"
+    xmlns:border="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+    xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+    xmlns:control="clr-namespace:Utad.Lab.G04.MobileDroid.Controls"
+    xmlns:converter="clr-namespace:Utad.Lab.G04.MobileDroid.Converters"
+    xmlns:core="clr-namespace:Syncfusion.XForms.Core;assembly=Syncfusion.Core.XForms"
+    xmlns:local="clr-namespace:Utad.Lab.G04.MobileDroid.Views"
+    xmlns:viewModel="clr-namespace:Utad.Lab.G04.MobileDroid.ViewModels"
+             BackgroundColor="{StaticResource Gray-300}"
+             NavigationPage.HasNavigationBar="False">
+    <ContentPage.BindingContext>
+        <viewModel:NovoProdutoViewModel />
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+
+        <StackLayout Spacing="3" Padding="15">
+            <StackLayout>
+                <Label FontSize="Large" FontAttributes="Bold" Text="Novo Produto" TextColor="{StaticResource Gray-White}"></Label>
+            </StackLayout>
+            <StackLayout Margin="0,30,0,0">
+            <!--Label Text="Nome" FontSize="Medium" TextColor="White"/>
+            <Entry TextColor="{StaticResource Gray-White}" Text="{Binding Nome, Mode=TwoWay}" FontSize="Medium" />-->
+            <Label Text="Descrição" FontSize="Medium" TextColor="White"/>
+            <Entry TextColor="{StaticResource Gray-White}" Text="{Binding Descricao, Mode=TwoWay}" FontSize="Medium" />
+            <Label Text="Quantidade" FontSize="Medium" TextColor="White"/>
+            <Entry TextColor="{StaticResource Gray-White}" Text="{Binding Quantidade, Mode=TwoWay}"></Entry>
+            </StackLayout>
+            <StackLayout>
+                <Label Text="Categoria" TextColor="White" FontSize="Medium" />
+                <combobox:SfComboBox x:Name="cbNovoProduto" HeightRequest="40" 
+                          NoResultsFoundText="Categoria não encontrada" IsEditableMode="True" AllowFiltering="True" 
+                          MultiSelectMode="None" TextColor="White">
+                    <combobox:SfComboBox.ComboBoxSource>
+                        <ListCollection:List x:TypeArguments="x:String">
+                            <x:String>Padaria</x:String>
+                            <x:String>Bazar</x:String>
+                            <x:String>Mercearia</x:String>
+                            <x:String>Frios e Laticínios</x:String>
+                            <x:String>Limpeza</x:String>
+                            <x:String>Ferragens</x:String>
+                            <x:String>Bricolage</x:String>
+                            <x:String>Automóveis</x:String>
+                        </ListCollection:List>
+                    </combobox:SfComboBox.ComboBoxSource>
+                </combobox:SfComboBox>
+            </StackLayout>
+            <StackLayout Orientation="Vertical" VerticalOptions="EndAndExpand">
+                <StackLayout Orientation="Horizontal">
+                    <buttons:SfButton Style="{StaticResource GradientButtonStyle}"  
+                                      CornerRadius="10" Text="Cancelar" FontFamily="Arial" FontSize="Medium" 
+                                      Clicked="btnCancelar" 
+                                      HorizontalOptions="FillAndExpand">
+                    </buttons:SfButton>
+                    <!-- BackgroundColor="Gray" -->
+
+                    <buttons:SfButton BackgroundColor="Gray" FontFamily="Arial" FontSize="Medium" CornerRadius="10" Text="Adicionar" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></buttons:SfButton>
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+
+
+
+
+    </ContentPage.Content>
+</ContentPage>

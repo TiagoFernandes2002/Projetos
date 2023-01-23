@@ -1,0 +1,11 @@
+C:\VSProjects\Utad.Lab.G04\Utad.Lab.G04.Domain\bin\Debug\netstandard2.1\Utad.Lab.G04.Domain.deps.json
+C:\VSProjects\Utad.Lab.G04\Utad.Lab.G04.Domain\bin\Debug\netstandard2.1\Utad.Lab.G04.Domain.dll
+C:\VSProjects\Utad.Lab.G04\Utad.Lab.G04.Domain\bin\Debug\netstandard2.1\Utad.Lab.G04.Domain.pdb
+C:\VSProjects\Utad.Lab.G04\Utad.Lab.G04.Domain\obj\Debug\netstandard2.1\Utad.Lab.G04.Domain.csproj.AssemblyReference.cache
+C:\VSProjects\Utad.Lab.G04\Utad.Lab.G04.Domain\obj\Debug\netstandard2.1\Utad.Lab.G04.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\VSProjects\Utad.Lab.G04\Utad.Lab.G04.Domain\obj\Debug\netstandard2.1\Utad.Lab.G04.Domain.AssemblyInfoInputs.cache
+C:\VSProjects\Utad.Lab.G04\Utad.Lab.G04.Domain\obj\Debug\netstandard2.1\Utad.Lab.G04.Domain.AssemblyInfo.cs
+C:\VSProjects\Utad.Lab.G04\Utad.Lab.G04.Domain\obj\Debug\netstandard2.1\Utad.Lab.G04.Domain.csproj.CoreCompileInputs.cache
+C:\VSProjects\Utad.Lab.G04\Utad.Lab.G04.Domain\obj\Debug\netstandard2.1\Utad.Lab.G04.Domain.csproj.Fody.CopyLocal.cache
+C:\VSProjects\Utad.Lab.G04\Utad.Lab.G04.Domain\obj\Debug\netstandard2.1\Utad.Lab.G04.Domain.dll
+C:\VSProjects\Utad.Lab.G04\Utad.Lab.G04.Domain\obj\Debug\netstandard2.1\Utad.Lab.G04.Domain.pdb

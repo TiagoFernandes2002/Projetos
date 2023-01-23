@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Utad.Lab.G04.MobileDroid.Views.ProfilePage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:border="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+    xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+    xmlns:control="clr-namespace:Utad.Lab.G04.MobileDroid.Controls"
+    xmlns:behaviours="clr-namespace:Utad.Lab.G04.MobileDroid.Behaviors"
+    xmlns:converter="clr-namespace:Utad.Lab.G04.MobileDroid.Converters"
+    xmlns:sfavatar="clr-namespace:Syncfusion.XForms.AvatarView;assembly=Syncfusion.Core.XForms"
+    xmlns:ViewModel="clr-namespace:Utad.Lab.G04.MobileDroid.ViewModels" 
+    xmlns:behaviour="clr-namespace:Utad.Lab.G04.MobileDroid.Behaviors"
+    BackgroundColor="{DynamicResource Gray-Bg}"
+    NavigationPage.HasNavigationBar="False"
+    x:Name="AddProfile">
+
+    <ContentPage.BindingContext>
+        <ViewModel:ProfilePageViewModel/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:BooleanToColorConverter x:Key="ColorConverter" />
+            <converter:InverseBoolConverter x:Key="InverseBoolConverter"/>
+            <converter:NameValidationConverter x:Key="FirstValidationErrorConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.ControlTemplate>
+        <ControlTemplate>
+            <StackLayout x:Name="titleLayout" Spacing="0">
+                <control:TitleView Title="Conta">
+                    <control:TitleView.LeadingView>
+                        <!--  Back button command  -->
+                        <buttons:SfButton x:Name="backButton" Command="{Binding Path=BindingContext.BackButtonCommand, Source={x:Reference AddProfile}}" 
+                                          Text="{StaticResource Back}" CommandParameter="{x:Reference backButton}" 
+                                          Style="{StaticResource IconButtonStyle}"
+                                          Clicked="backButton_Clicked"/>
+
+                    </control:TitleView.LeadingView>
+                </control:TitleView>
+                <ContentPresenter />
+            </StackLayout>
+        </ControlTemplate>
+    </ContentPage.ControlTemplate>
+
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Padding="16" Spacing="16">
+                <Grid>
+                    <!--  Avatar view to display the profile picture  -->
+                    <sfavatar:SfAvatarView
+                            Padding="13"
+                            BackgroundColor="{DynamicResource Gray-200}"
+                            BorderWidth="0"
+                            ContentType="Custom"
+                            CornerRadius="80"
+                            HeightRequest="80"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            WidthRequest="80">
+                        <sfavatar:SfAvatarView.ImageSource>
+                            <FontImageSource
+                                    FontFamily="FontIcons"
+                                    Glyph="{StaticResource Contact}"
+                                    Size="29"
+                                    Color="{DynamicResource Gray-600}" />
+                        </sfavatar:SfAvatarView.ImageSource>
+                    </sfavatar:SfAvatarView>
+
+                    <border:SfBorder HorizontalOptions="Center" VerticalOptions="Center" 
+                        HeightRequest="110" WidthRequest="110" BorderColor="Transparent" >
+                        <border:SfBorder.Content>
+                            <buttons:SfButton Text="{StaticResource Add}" HeightRequest="36"
+                                              WidthRequest="36" CornerRadius="36" VerticalOptions="End" 
+                                              HorizontalOptions="End" BorderWidth="2" BackgroundColor="{DynamicResource Gray-200}"
+                                              BorderColor="{DynamicResource Gray-Bg}"
+                                              TextColor="{DynamicResource Steel}" Style="{StaticResource IconButtonStyle}"
+                                              Command="{Binding AddProfileCommand}" />
+                        </border:SfBorder.Content>
+                    </border:SfBorder>
+                </Grid>
+
+                <!--  Displaying the label of Add profile picture below to the badgeview 
+                <Label Text="Add Profile Picture"
+                       Style="{StaticResource DescriptionLabelStyle}" /> -->
+                <Grid
+                        RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto"
+                        RowSpacing="0"
+                        VerticalOptions="CenterAndExpand">
+
+                    <StackLayout>
+                        <Label
+                            FontSize="20"
+                            Style="{StaticResource TitleLabelStyle}"
+                            HorizontalOptions="Start"
+                            Text="Nome de Usuário"
+                            Grid.Row="1"/>
+
+                        <Label x:Name="TbUserName" 
+                               Text="Utilizador"  
+                               Grid.Row="2" 
+                               TextColor="#BDC3CB"
+                               HorizontalOptions="Start" 
+                               VerticalOptions="Center" 
+                               FontSize="15"/>
+
+                    
+                        <Label
+                            FontSize="20"
+                            Style="{StaticResource TitleLabelStyle}"
+                            HorizontalOptions="Start"
+                            Text="E-MAIL"
+                            Grid.Row="3"/>
+
+                        <Label x:Name="TbEmail" 
+                               Text="user@utad.eu"  
+                               Grid.Row="4" 
+                               TextColor="#BDC3CB"
+                               HorizontalOptions="Start" 
+                               VerticalOptions="Center" 
+                               FontSize="15"/>
+
+                    </StackLayout>
+                    
+                    
+
+                </Grid>
+                <buttons:SfButton
+                                 Margin="0,16,0,0"
+                                 Style="{StaticResource GradientButtonStyle}"
+                                 Text="EDITAR PERFIL"
+                                 WidthRequest="200" 
+                                 Clicked="BtEdit_Clicked"/>
+
+                <buttons:SfButton
+                                 Margin="0,16,0,0"
+                                 BackgroundColor="Red"
+                                 Text="ELIMINAR CONTA"
+                                 WidthRequest="200" 
+                                 Clicked="BtDel_Clicked"/>
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

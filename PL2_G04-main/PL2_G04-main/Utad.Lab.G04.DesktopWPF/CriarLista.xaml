@@ -1,0 +1,35 @@
+﻿<syncfusion:ChromelessWindow x:Class="Utad.Lab.G04.DesktopWPF.CriarLista"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Utad.Lab.G04.DesktopWPF"
+        xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+        syncfusion:SfSkinManager.Theme="{syncfusion:SkinManagerExtension ThemeName=FluentDark}"
+        mc:Ignorable="d"
+        Title="Criar Lista" Height="500" Width="500" Icon="/icon.png" MinHeight="500" MinWidth="500">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="90"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="350"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.ColumnSpan="2" x:Name="NL" Content="Nova Lista" HorizontalAlignment="Left" FontSize="22" Margin="10,0,0,0" ></Label>
+        <syncfusion:SfTextInputLayout Grid.ColumnSpan="2" Grid.Row="1" FocusedBorderBrush="WhiteSmoke" Hint="Título da Lista" CharMaxLength="30" Margin="10">
+            <TextBox x:Name="TBDesc"/>
+        </syncfusion:SfTextInputLayout>
+        <syncfusion:CardView x:Name="CVItems" Grid.Row="2" Grid.Column="0" CanGroup="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden" Orientation="Horizontal" CanSort="False" ShowHeader="False">
+
+        </syncfusion:CardView>
+        <syncfusion:ButtonAdv x:Name="BTNAddItem" Grid.Row="2" Grid.Column="1" Width="80" Height="80" Label="Adicionar Item" SizeMode="Large" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"  LargeIcon="/Images/add.png"/>
+        <syncfusion:ButtonAdv x:Name="BTNConcluido" Grid.Row="3" Grid.Column="0" Margin="5"  Label="Concluído" IsMultiLine="False" IconHeight="0" IconWidth="0"/>
+        <syncfusion:ButtonAdv x:Name="BTNCancela" Grid.Row="3" Grid.Column="1" Margin="5" Label="Cancelar" IsMultiLine="False" IconHeight="0" IconWidth="0" />
+        <Label Grid.Column="0" Foreground="DarkRed" x:Name="ErrorLBL" Visibility="Hidden" Content="Título não pode estar vazio." HorizontalAlignment="Right" FontSize="16" Margin="10,0,0,0" />
+    </Grid>
+</syncfusion:ChromelessWindow>

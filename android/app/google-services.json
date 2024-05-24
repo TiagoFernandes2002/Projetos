@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "753684571890",
+    "project_id": "car-sharing-utad-pmv445",
+    "storage_bucket": "car-sharing-utad-pmv445.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:753684571890:android:f6eded65448f96f3fe926b",
+        "android_client_info": {
+          "package_name": "com.mycompany.crmapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxv6uWz4M3lUuQk4ZHu8Pwem-xvggzjOc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

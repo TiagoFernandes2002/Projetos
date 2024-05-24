@@ -1,0 +1,32 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "rides",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "travelDate",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "allUsers",
+          "arrayConfig": "CONTAINS"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "message",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "chatRef",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "msgTime",
+          "order": "ASCENDING"
+        }
+      ]
+    }
+  ]
+}

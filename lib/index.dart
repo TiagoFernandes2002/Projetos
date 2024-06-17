@@ -32,3 +32,4 @@ export '/pages/auth_pages/profile_driver/profile_driver_widget.dart'
     show ProfileDriverWidget;
 export '/pages/travels/create_request/create_request_widget.dart'
     show CreateRequestWidget;
+export '/pages/users/storetry/storetry_widget.dart' show StoretryWidget;

@@ -723,7 +723,7 @@ class _AuthCreateWidgetState extends State<AuthCreateWidget>
                                             .emailAddressTextController.text,
                                       ));
 
-                                  context.pushNamedAuth(
+                                  context.goNamedAuth(
                                     'Profile_Driver_Passenger',
                                     context.mounted,
                                     extra: <String, dynamic>{

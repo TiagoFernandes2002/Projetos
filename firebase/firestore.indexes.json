@@ -15,6 +15,20 @@
       ]
     },
     {
+      "collectionGroup": "travelRequests",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isAccepted",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "travelDate",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
       "collectionGroup": "message",
       "queryScope": "COLLECTION",
       "fields": [
@@ -24,6 +38,48 @@
         },
         {
           "fieldPath": "msgTime",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "rides",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "allUsers",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "travelDate",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "rewardStore",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isActive",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "quantityAvailable",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "rides",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "driverId",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "travelDate",
           "order": "ASCENDING"
         }
       ]

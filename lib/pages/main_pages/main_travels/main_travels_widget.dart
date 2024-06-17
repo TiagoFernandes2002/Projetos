@@ -1,6 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/components/modals/command_palette/command_palette_widget.dart';
+import '/components/travel_history_widget.dart';
 import '/components/web_nav/web_nav_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -8,7 +8,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:math';
-import 'package:badges/badges.dart' as badges;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -207,7 +206,7 @@ class _MainTravelsWidgetState extends State<MainTravelsWidget>
                                             borderWidth: 1.0,
                                             buttonSize: 60.0,
                                             icon: Icon(
-                                              Icons.search_rounded,
+                                              Icons.history,
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .primaryText,
@@ -215,12 +214,13 @@ class _MainTravelsWidgetState extends State<MainTravelsWidget>
                                             ),
                                             onPressed: () async {
                                               logFirebaseEvent(
-                                                  'MAIN_TRAVELS_search_rounded_ICN_ON_TAP');
+                                                  'MAIN_TRAVELS_PAGE_history_ICN_ON_TAP');
                                               await showModalBottomSheet(
                                                 isScrollControlled: true,
                                                 backgroundColor:
                                                     Colors.transparent,
                                                 barrierColor: Color(0x1A000000),
+                                                useSafeArea: true,
                                                 context: context,
                                                 builder: (context) {
                                                   return GestureDetector(
@@ -237,9 +237,13 @@ class _MainTravelsWidgetState extends State<MainTravelsWidget>
                                                           .viewInsetsOf(
                                                               context),
                                                       child: Container(
-                                                        height: double.infinity,
+                                                        height:
+                                                            MediaQuery.sizeOf(
+                                                                        context)
+                                                                    .height *
+                                                                0.7,
                                                         child:
-                                                            CommandPaletteWidget(),
+                                                            TravelHistoryWidget(),
                                                       ),
                                                     ),
                                                   );
@@ -686,56 +690,25 @@ class _MainTravelsWidgetState extends State<MainTravelsWidget>
               Align(
                 alignment: AlignmentDirectional(1.0, 1.0),
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 35.0, 40.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 20.0, 20.0),
                   child: AuthUserStreamWidget(
-                    builder: (context) => InkWell(
-                      splashColor: Colors.transparent,
-                      focusColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      onTap: () async {
+                    builder: (context) => FlutterFlowIconButton(
+                      borderColor: FlutterFlowTheme.of(context).primary,
+                      borderRadius: 50.0,
+                      borderWidth: 1.0,
+                      buttonSize: 60.0,
+                      fillColor: FlutterFlowTheme.of(context).accent1,
+                      icon: Icon(
+                        Icons.car_crash_outlined,
+                        color: FlutterFlowTheme.of(context).primaryText,
+                        size: 35.0,
+                      ),
+                      onPressed: () async {
                         logFirebaseEvent(
-                            'MAIN_TRAVELS_PAGE_Badge_2vtiqn8h_ON_TAP');
+                            'MAIN_TRAVELS_car_crash_outlined_ICN_ON_T');
 
                         context.pushNamed('Create_travel');
                       },
-                      child: badges.Badge(
-                        badgeContent: Text(
-                          FFLocalizations.of(context).getText(
-                            'w9fmjl4v' /* 1 */,
-                          ),
-                          style:
-                              FlutterFlowTheme.of(context).titleSmall.override(
-                                    fontFamily: 'Plus Jakarta Sans',
-                                    color: Colors.white,
-                                    letterSpacing: 0.0,
-                                  ),
-                        ),
-                        showBadge: true,
-                        shape: badges.BadgeShape.circle,
-                        badgeColor: FlutterFlowTheme.of(context).primary,
-                        elevation: 4.0,
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 8.0),
-                        position: badges.BadgePosition.topEnd(),
-                        animationType: badges.BadgeAnimationType.scale,
-                        toAnimate: true,
-                        child: FlutterFlowIconButton(
-                          borderColor: FlutterFlowTheme.of(context).primary,
-                          borderRadius: 50.0,
-                          borderWidth: 1.0,
-                          buttonSize: 60.0,
-                          fillColor: FlutterFlowTheme.of(context).accent1,
-                          icon: Icon(
-                            Icons.car_crash_outlined,
-                            color: FlutterFlowTheme.of(context).primaryText,
-                            size: 35.0,
-                          ),
-                          onPressed: () {
-                            print('IconButton pressed ...');
-                          },
-                        ),
-                      ),
                     ),
                   ),
                 ),

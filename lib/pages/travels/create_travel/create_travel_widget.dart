@@ -169,12 +169,11 @@ class _CreateTravelWidgetState extends State<CreateTravelWidget> {
                                   );
                                 });
                             if (_model.datePicked != null) {
-                              setState(() {
-                                _model.dateMin = functions.futureDate(
-                                    _model.datePicked, -30, 0, 0, 0);
-                                _model.dateMax = functions.futureDate(
-                                    _model.datePicked, 30, 0, 0, 0);
-                              });
+                              _model.dateMin = functions.futureDate(
+                                  _model.datePicked, -30, 0, 0, 0);
+                              _model.dateMax = functions.futureDate(
+                                  _model.datePicked, 30, 0, 0, 0);
+                              setState(() {});
                             }
                           },
                           child: Container(
@@ -245,6 +244,14 @@ class _CreateTravelWidgetState extends State<CreateTravelWidget> {
                                   .where(
                                     'travelDate',
                                     isLessThanOrEqualTo: _model.dateMax,
+                                  )
+                                  .where(
+                                    'isAccepted',
+                                    isEqualTo: false,
+                                  )
+                                  .where(
+                                    'travelDate',
+                                    isGreaterThan: getCurrentTimestamp,
                                   ),
                         ),
                         builder: (context, snapshot) {
@@ -410,58 +417,82 @@ class _CreateTravelWidgetState extends State<CreateTravelWidget> {
                     onPressed: () async {
                       logFirebaseEvent(
                           'CREATE_TRAVEL_CREATE_TRAVEL_BTN_ON_TAP');
-                      setState(() {
-                        _model.contador = 0;
-                      });
-
-                      var ridesRecordReference = RidesRecord.collection.doc();
-                      await ridesRecordReference.set({
-                        ...createRidesRecordData(
-                          driverId: currentUserReference,
-                          isStarted: false,
-                          travelDate: _model.datePicked,
-                        ),
-                        ...mapToFirestore(
-                          {
-                            'allUsers': [currentUserReference],
-                          },
-                        ),
-                      });
-                      _model.rideId = RidesRecord.getDocumentFromData({
-                        ...createRidesRecordData(
-                          driverId: currentUserReference,
-                          isStarted: false,
-                          travelDate: _model.datePicked,
-                        ),
-                        ...mapToFirestore(
-                          {
-                            'allUsers': [currentUserReference],
-                          },
-                        ),
-                      }, ridesRecordReference);
-                      while (_model.contador! < _model.checkedRequests.length) {
-                        _model.users =
-                            await TravelRequestsRecord.getDocumentOnce(
-                                _model.checkedRequests[_model.contador!]);
-
-                        await _model.rideId!.reference.update({
+                      _model.contador = 0;
+                      setState(() {});
+                      if (_model.checkedRequests.length <= 4) {
+                        var ridesRecordReference = RidesRecord.collection.doc();
+                        await ridesRecordReference.set({
+                          ...createRidesRecordData(
+                            driverId: currentUserReference,
+                            isStarted: false,
+                            travelDate: _model.datePicked,
+                          ),
                           ...mapToFirestore(
                             {
-                              'passengers': FieldValue.arrayUnion(
-                                  [_model.users?.passengerId]),
+                              'allUsers': [currentUserReference],
                             },
                           ),
                         });
+                        _model.rideId = RidesRecord.getDocumentFromData({
+                          ...createRidesRecordData(
+                            driverId: currentUserReference,
+                            isStarted: false,
+                            travelDate: _model.datePicked,
+                          ),
+                          ...mapToFirestore(
+                            {
+                              'allUsers': [currentUserReference],
+                            },
+                          ),
+                        }, ridesRecordReference);
+                        while (
+                            _model.contador! < _model.checkedRequests.length) {
+                          _model.users =
+                              await TravelRequestsRecord.getDocumentOnce(
+                                  _model.checkedRequests[_model.contador!]);
 
-                        await _model.checkedRequests[_model.contador!]
-                            .update(createTravelRequestsRecordData(
-                          isAccepted: true,
-                        ));
-                        setState(() {
+                          await _model.rideId!.reference.update({
+                            ...mapToFirestore(
+                              {
+                                'passengers': FieldValue.arrayUnion(
+                                    [_model.users?.passengerId]),
+                              },
+                            ),
+                          });
+
+                          await _model.checkedRequests[_model.contador!]
+                              .update(createTravelRequestsRecordData(
+                            isAccepted: true,
+                          ));
+
+                          await NotificationsRecord.collection
+                              .doc()
+                              .set(createNotificationsRecordData(
+                                date: getCurrentTimestamp,
+                                fromUser: currentUserReference,
+                                toUser: _model.users?.passengerId,
+                                type: 'travel',
+                                travelRef: _model.rideId?.reference,
+                                isRead: false,
+                              ));
                           _model.contador = _model.contador! + 1;
-                        });
+                          setState(() {});
+                        }
+                        context.safePop();
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              'You can only have 4 passengers',
+                              style: TextStyle(
+                                color: FlutterFlowTheme.of(context).primaryText,
+                              ),
+                            ),
+                            duration: Duration(milliseconds: 4000),
+                            backgroundColor: FlutterFlowTheme.of(context).error,
+                          ),
+                        );
                       }
-                      context.safePop();
 
                       setState(() {});
                     },

@@ -27,6 +27,8 @@ class UserDetailsModel extends FlutterFlowModel<UserDetailsWidget> {
 
   // Stores action output result for [Firestore Query - Query a collection] action in userDetails widget.
   List<ChatRecord>? listchatfilter;
+  // Stores action output result for [Backend Call - Create Document] action in IconButton widget.
+  ChatRecord? createdChat;
   // State field(s) for GoogleMap widget.
   LatLng? googleMapsCenter;
   final googleMapsController = Completer<GoogleMapController>();

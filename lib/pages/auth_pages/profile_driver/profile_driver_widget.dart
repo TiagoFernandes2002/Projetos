@@ -577,14 +577,37 @@ C... */
                 child: FFButtonWidget(
                   onPressed: () async {
                     logFirebaseEvent('PROFILE_DRIVER_SAVE_CHANGES_BTN_ON_TAP');
+                    if ((_model.uploadedFileUrl1 != null &&
+                            _model.uploadedFileUrl1 != '') &&
+                        (_model.uploadedFileUrl2 != null &&
+                            _model.uploadedFileUrl2 != '') &&
+                        (_model.brandTextController.text != null &&
+                            _model.brandTextController.text != '') &&
+                        (_model.modelTextController.text != null &&
+                            _model.modelTextController.text != '') &&
+                        (_model.plateTextController.text != null &&
+                            _model.plateTextController.text != '')) {
+                      await currentUserReference!.update(createUsersRecordData(
+                        driverInfoCarBrand: _model.brandTextController.text,
+                        driverInfoCarModel: _model.modelTextController.text,
+                        driverInfoCarPlate: _model.plateTextController.text,
+                      ));
 
-                    await currentUserReference!.update(createUsersRecordData(
-                      driverInfoCarBrand: _model.brandTextController.text,
-                      driverInfoCarModel: _model.modelTextController.text,
-                      driverInfoCarPlate: _model.plateTextController.text,
-                    ));
-
-                    context.pushNamed('Main_Home');
+                      context.pushNamed('Main_Home');
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            'Not All Values Set',
+                            style: TextStyle(
+                              color: FlutterFlowTheme.of(context).primaryText,
+                            ),
+                          ),
+                          duration: Duration(milliseconds: 4000),
+                          backgroundColor: FlutterFlowTheme.of(context).error,
+                        ),
+                      );
+                    }
                   },
                   text: FFLocalizations.of(context).getText(
                     '27jii4ix' /* Save Changes */,

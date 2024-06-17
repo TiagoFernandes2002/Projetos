@@ -639,6 +639,17 @@ class _MessagesDetailsWidgetState extends State<MessagesDetailsWidget> {
                               user: currentUserReference,
                               messageTime: getCurrentTimestamp,
                             ));
+
+                            await NotificationsRecord.collection
+                                .doc()
+                                .set(createNotificationsRecordData(
+                                  date: getCurrentTimestamp,
+                                  fromUser: currentUserReference,
+                                  toUser: widget.profile,
+                                  type: 'chat',
+                                  chatRef: widget.chatMessages,
+                                  isRead: false,
+                                ));
                             setState(() {
                               _model.textController?.clear();
                             });

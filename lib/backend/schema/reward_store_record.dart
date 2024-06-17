@@ -41,12 +41,24 @@ class RewardStoreRecord extends FirestoreRecord {
   int get quantityAvailable => _quantityAvailable ?? 0;
   bool hasQuantityAvailable() => _quantityAvailable != null;
 
+  // "isActive" field.
+  bool? _isActive;
+  bool get isActive => _isActive ?? false;
+  bool hasIsActive() => _isActive != null;
+
+  // "quantityTotal" field.
+  int? _quantityTotal;
+  int get quantityTotal => _quantityTotal ?? 0;
+  bool hasQuantityTotal() => _quantityTotal != null;
+
   void _initializeFields() {
     _description = snapshotData['description'] as String?;
     _image = snapshotData['image'] as String?;
     _name = snapshotData['name'] as String?;
     _pointsCost = castToType<int>(snapshotData['pointsCost']);
     _quantityAvailable = castToType<int>(snapshotData['quantityAvailable']);
+    _isActive = snapshotData['isActive'] as bool?;
+    _quantityTotal = castToType<int>(snapshotData['quantityTotal']);
   }
 
   static CollectionReference get collection =>
@@ -89,6 +101,8 @@ Map<String, dynamic> createRewardStoreRecordData({
   String? name,
   int? pointsCost,
   int? quantityAvailable,
+  bool? isActive,
+  int? quantityTotal,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -97,6 +111,8 @@ Map<String, dynamic> createRewardStoreRecordData({
       'name': name,
       'pointsCost': pointsCost,
       'quantityAvailable': quantityAvailable,
+      'isActive': isActive,
+      'quantityTotal': quantityTotal,
     }.withoutNulls,
   );
 
@@ -112,12 +128,21 @@ class RewardStoreRecordDocumentEquality implements Equality<RewardStoreRecord> {
         e1?.image == e2?.image &&
         e1?.name == e2?.name &&
         e1?.pointsCost == e2?.pointsCost &&
-        e1?.quantityAvailable == e2?.quantityAvailable;
+        e1?.quantityAvailable == e2?.quantityAvailable &&
+        e1?.isActive == e2?.isActive &&
+        e1?.quantityTotal == e2?.quantityTotal;
   }
 
   @override
-  int hash(RewardStoreRecord? e) => const ListEquality().hash(
-      [e?.description, e?.image, e?.name, e?.pointsCost, e?.quantityAvailable]);
+  int hash(RewardStoreRecord? e) => const ListEquality().hash([
+        e?.description,
+        e?.image,
+        e?.name,
+        e?.pointsCost,
+        e?.quantityAvailable,
+        e?.isActive,
+        e?.quantityTotal
+      ]);
 
   @override
   bool isValidKey(Object? o) => o is RewardStoreRecord;

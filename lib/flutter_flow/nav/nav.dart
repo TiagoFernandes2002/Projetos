@@ -213,6 +213,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: 'Create_Request',
               path: 'createRequest',
               builder: (context, params) => CreateRequestWidget(),
+            ),
+            FFRoute(
+              name: 'storetry',
+              path: 'storetry',
+              builder: (context, params) => StoretryWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),

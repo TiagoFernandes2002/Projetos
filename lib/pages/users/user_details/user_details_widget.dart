@@ -58,14 +58,13 @@ class _UserDetailsWidgetState extends State<UserDetailsWidget>
           ),
         )),
       );
-      setState(() {
-        _model.chatRef = _model.listchatfilter
-            ?.where((e) =>
-                (e.userAuth == widget.userRef) || (e.userOth == widget.userRef))
-            .toList()
-            ?.first
-            ?.reference;
-      });
+      _model.chatRef = _model.listchatfilter
+          ?.where((e) =>
+              (e.userAuth == widget.userRef) || (e.userOth == widget.userRef))
+          .toList()
+          ?.first
+          ?.reference;
+      setState(() {});
     });
 
     animationsMap.addAll({
@@ -547,7 +546,39 @@ class _UserDetailsWidgetState extends State<UserDetailsWidget>
                                             ),
                                           }.withoutNulls,
                                         );
+                                      } else {
+                                        var chatRecordReference =
+                                            ChatRecord.collection.doc();
+                                        await chatRecordReference
+                                            .set(createChatRecordData(
+                                          userAuth: currentUserReference,
+                                          userOth: widget.userRef,
+                                        ));
+                                        _model.createdChat =
+                                            ChatRecord.getDocumentFromData(
+                                                createChatRecordData(
+                                                  userAuth:
+                                                      currentUserReference,
+                                                  userOth: widget.userRef,
+                                                ),
+                                                chatRecordReference);
+
+                                        context.pushNamed(
+                                          'messagesDetails',
+                                          queryParameters: {
+                                            'chatMessages': serializeParam(
+                                              _model.createdChat?.reference,
+                                              ParamType.DocumentReference,
+                                            ),
+                                            'profile': serializeParam(
+                                              widget.userRef,
+                                              ParamType.DocumentReference,
+                                            ),
+                                          }.withoutNulls,
+                                        );
                                       }
+
+                                      setState(() {});
                                     },
                                   ),
                                 ),

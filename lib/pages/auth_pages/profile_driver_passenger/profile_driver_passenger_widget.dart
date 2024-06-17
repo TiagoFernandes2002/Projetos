@@ -521,10 +521,30 @@ class _ProfileDriverPassengerWidgetState
                       displayName: _model.yourNameTextController.text,
                       location: _model.googleMapsCenter,
                     ));
-                    if (_model.orPassengeroOrDriverValue == 'Passenger') {
-                      context.pushNamed('Main_Home');
+                    if ((_model.uploadedFileUrl != null &&
+                            _model.uploadedFileUrl != '') &&
+                        (_model.yourNameTextController.text != null &&
+                            _model.yourNameTextController.text != '') &&
+                        (_model.utadEmailTextController.text != null &&
+                            _model.utadEmailTextController.text != '')) {
+                      if (_model.orPassengeroOrDriverValue == 'Passenger') {
+                        context.goNamed('Main_Home');
+                      } else {
+                        context.goNamed('Profile_Driver');
+                      }
                     } else {
-                      context.pushNamed('Profile_Driver');
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            'Not All Values Set',
+                            style: TextStyle(
+                              color: FlutterFlowTheme.of(context).primaryText,
+                            ),
+                          ),
+                          duration: Duration(milliseconds: 4000),
+                          backgroundColor: FlutterFlowTheme.of(context).error,
+                        ),
+                      );
                     }
                   },
                   text: FFLocalizations.of(context).getText(

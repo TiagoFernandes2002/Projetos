@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/components/dropdown_user_edit/dropdown_user_edit_widget.dart';
 import '/components/dropdown_user_edit_admin/dropdown_user_edit_admin_widget.dart';
 import '/components/modals/command_palette/command_palette_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
@@ -153,7 +154,7 @@ class _MainCustomerListWidgetState extends State<MainCustomerListWidget>
                     Expanded(
                       child: Text(
                         FFLocalizations.of(context).getText(
-                          'n99lg1qh' /* Users */,
+                          'n99lg1qh' /* Travels Request */,
                         ),
                         style:
                             FlutterFlowTheme.of(context).displaySmall.override(
@@ -215,6 +216,10 @@ class _MainCustomerListWidgetState extends State<MainCustomerListWidget>
                                 .where(
                                   'travelDate',
                                   isGreaterThanOrEqualTo: getCurrentTimestamp,
+                                )
+                                .where(
+                                  'isAccepted',
+                                  isEqualTo: false,
                                 )
                                 .orderBy('travelDate'),
                       ),
@@ -514,8 +519,8 @@ class _MainCustomerListWidgetState extends State<MainCustomerListWidget>
                                                   if (valueOrDefault<bool>(
                                                           currentUserDocument
                                                               ?.driverInfoIsApproved,
-                                                          false) !=
-                                                      null) {
+                                                          false) ==
+                                                      true) {
                                                     await showAlignedDialog(
                                                       context: context,
                                                       isGlobal: false,
@@ -554,6 +559,11 @@ class _MainCustomerListWidgetState extends State<MainCustomerListWidget>
                                                               userRef:
                                                                   listViewTravelRequestsRecord
                                                                       .passengerId!,
+                                                              travelRequest:
+                                                                  listViewTravelRequestsRecord
+                                                                      .reference,
+                                                              date: listViewTravelRequestsRecord
+                                                                  .travelDate!,
                                                             ),
                                                           ),
                                                         );
@@ -595,7 +605,7 @@ class _MainCustomerListWidgetState extends State<MainCustomerListWidget>
                                                                         context)
                                                                     .unfocus(),
                                                             child:
-                                                                DropdownUserEditAdminWidget(
+                                                                DropdownUserEditWidget(
                                                               userRef:
                                                                   listViewTravelRequestsRecord
                                                                       .passengerId!,

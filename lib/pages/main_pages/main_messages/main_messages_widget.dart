@@ -442,269 +442,266 @@ class _MainMessagesWidgetState extends State<MainMessagesWidget>
                                                 List<ChatRecord>
                                                     listMessagesChatRecordList =
                                                     snapshot.data!;
-                                                return Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: List.generate(
-                                                      listMessagesChatRecordList
-                                                          .length,
-                                                      (listMessagesIndex) {
-                                                    final listMessagesChatRecord =
-                                                        listMessagesChatRecordList[
-                                                            listMessagesIndex];
-                                                    return Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  1.0,
-                                                                  0.0,
-                                                                  0.0),
-                                                      child: StreamBuilder<
-                                                          UsersRecord>(
-                                                        stream: UsersRecord.getDocument(
-                                                            listMessagesChatRecord
-                                                                        .userAuth ==
-                                                                    currentUserReference
-                                                                ? listMessagesChatRecord
-                                                                    .userOth!
-                                                                : listMessagesChatRecord
-                                                                    .userAuth!),
-                                                        builder: (context,
-                                                            snapshot) {
-                                                          // Customize what your widget looks like when it's loading.
-                                                          if (!snapshot
-                                                              .hasData) {
-                                                            return Center(
-                                                              child: SizedBox(
-                                                                width: 20.0,
-                                                                height: 20.0,
-                                                                child:
-                                                                    CircularProgressIndicator(
-                                                                  valueColor:
-                                                                      AlwaysStoppedAnimation<
-                                                                          Color>(
-                                                                    FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primary,
+                                                return SingleChildScrollView(
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: List.generate(
+                                                        listMessagesChatRecordList
+                                                            .length,
+                                                        (listMessagesIndex) {
+                                                      final listMessagesChatRecord =
+                                                          listMessagesChatRecordList[
+                                                              listMessagesIndex];
+                                                      return Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    1.0,
+                                                                    0.0,
+                                                                    0.0),
+                                                        child: StreamBuilder<
+                                                            UsersRecord>(
+                                                          stream: UsersRecord.getDocument(listMessagesChatRecord
+                                                                      .userAuth ==
+                                                                  currentUserReference
+                                                              ? listMessagesChatRecord
+                                                                  .userOth!
+                                                              : listMessagesChatRecord
+                                                                  .userAuth!),
+                                                          builder: (context,
+                                                              snapshot) {
+                                                            // Customize what your widget looks like when it's loading.
+                                                            if (!snapshot
+                                                                .hasData) {
+                                                              return Center(
+                                                                child: SizedBox(
+                                                                  width: 20.0,
+                                                                  height: 20.0,
+                                                                  child:
+                                                                      CircularProgressIndicator(
+                                                                    valueColor:
+                                                                        AlwaysStoppedAnimation<
+                                                                            Color>(
+                                                                      FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .primary,
+                                                                    ),
                                                                   ),
                                                                 ),
-                                                              ),
-                                                            );
-                                                          }
-                                                          final containerUsersRecord =
-                                                              snapshot.data!;
-                                                          return InkWell(
-                                                            splashColor: Colors
-                                                                .transparent,
-                                                            focusColor: Colors
-                                                                .transparent,
-                                                            hoverColor: Colors
-                                                                .transparent,
-                                                            highlightColor:
-                                                                Colors
-                                                                    .transparent,
-                                                            onTap: () async {
-                                                              logFirebaseEvent(
-                                                                  'MAIN_MESSAGES_Container_cnnfezb7_ON_TAP');
-
-                                                              context.pushNamed(
-                                                                'messagesDetails',
-                                                                queryParameters:
-                                                                    {
-                                                                  'chatMessages':
-                                                                      serializeParam(
-                                                                    listMessagesChatRecord
-                                                                        .reference,
-                                                                    ParamType
-                                                                        .DocumentReference,
-                                                                  ),
-                                                                  'profile':
-                                                                      serializeParam(
-                                                                    listMessagesChatRecord.userAuth ==
-                                                                            currentUserReference
-                                                                        ? listMessagesChatRecord
-                                                                            .userOth
-                                                                        : listMessagesChatRecord
-                                                                            .userAuth,
-                                                                    ParamType
-                                                                        .DocumentReference,
-                                                                  ),
-                                                                }.withoutNulls,
                                                               );
-                                                            },
-                                                            child: Material(
-                                                              color: Colors
+                                                            }
+                                                            final containerUsersRecord =
+                                                                snapshot.data!;
+                                                            return InkWell(
+                                                              splashColor: Colors
                                                                   .transparent,
-                                                              elevation: 0.0,
-                                                              shape:
-                                                                  RoundedRectangleBorder(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            0.0),
-                                                              ),
-                                                              child: Container(
-                                                                width: double
-                                                                    .infinity,
-                                                                decoration:
-                                                                    BoxDecoration(
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .secondaryBackground,
+                                                              focusColor: Colors
+                                                                  .transparent,
+                                                              hoverColor: Colors
+                                                                  .transparent,
+                                                              highlightColor:
+                                                                  Colors
+                                                                      .transparent,
+                                                              onTap: () async {
+                                                                logFirebaseEvent(
+                                                                    'MAIN_MESSAGES_Container_cnnfezb7_ON_TAP');
+
+                                                                context
+                                                                    .pushNamed(
+                                                                  'messagesDetails',
+                                                                  queryParameters:
+                                                                      {
+                                                                    'chatMessages':
+                                                                        serializeParam(
+                                                                      listMessagesChatRecord
+                                                                          .reference,
+                                                                      ParamType
+                                                                          .DocumentReference,
+                                                                    ),
+                                                                    'profile':
+                                                                        serializeParam(
+                                                                      listMessagesChatRecord.userAuth ==
+                                                                              currentUserReference
+                                                                          ? listMessagesChatRecord
+                                                                              .userOth
+                                                                          : listMessagesChatRecord
+                                                                              .userAuth,
+                                                                      ParamType
+                                                                          .DocumentReference,
+                                                                    ),
+                                                                  }.withoutNulls,
+                                                                );
+                                                              },
+                                                              child: Material(
+                                                                color: Colors
+                                                                    .transparent,
+                                                                elevation: 0.0,
+                                                                shape:
+                                                                    RoundedRectangleBorder(
                                                                   borderRadius:
                                                                       BorderRadius
                                                                           .circular(
                                                                               0.0),
                                                                 ),
-                                                                child: Padding(
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          16.0,
-                                                                          12.0,
-                                                                          12.0,
-                                                                          12.0),
-                                                                  child: Row(
-                                                                    mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .max,
-                                                                    crossAxisAlignment:
-                                                                        CrossAxisAlignment
-                                                                            .start,
-                                                                    children: [
-                                                                      Container(
-                                                                        width:
-                                                                            75.0,
-                                                                        height:
-                                                                            75.0,
-                                                                        decoration:
-                                                                            BoxDecoration(
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).accent1,
-                                                                          borderRadius:
-                                                                              BorderRadius.circular(12.0),
-                                                                          shape:
-                                                                              BoxShape.rectangle,
-                                                                          border:
-                                                                              Border.all(
+                                                                child:
+                                                                    Container(
+                                                                  width: double
+                                                                      .infinity,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .secondaryBackground,
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            0.0),
+                                                                  ),
+                                                                  child:
+                                                                      Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            16.0,
+                                                                            12.0,
+                                                                            12.0,
+                                                                            12.0),
+                                                                    child: Row(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      crossAxisAlignment:
+                                                                          CrossAxisAlignment
+                                                                              .start,
+                                                                      children: [
+                                                                        Container(
+                                                                          width:
+                                                                              75.0,
+                                                                          height:
+                                                                              75.0,
+                                                                          decoration:
+                                                                              BoxDecoration(
                                                                             color:
-                                                                                FlutterFlowTheme.of(context).primary,
-                                                                            width:
-                                                                                2.0,
-                                                                          ),
-                                                                        ),
-                                                                        child:
-                                                                            Padding(
-                                                                          padding:
-                                                                              EdgeInsets.all(2.0),
-                                                                          child:
-                                                                              ClipRRect(
+                                                                                FlutterFlowTheme.of(context).accent1,
                                                                             borderRadius:
-                                                                                BorderRadius.circular(10.0),
+                                                                                BorderRadius.circular(12.0),
+                                                                            shape:
+                                                                                BoxShape.rectangle,
+                                                                            border:
+                                                                                Border.all(
+                                                                              color: FlutterFlowTheme.of(context).primary,
+                                                                              width: 2.0,
+                                                                            ),
+                                                                          ),
+                                                                          child:
+                                                                              Padding(
+                                                                            padding:
+                                                                                EdgeInsets.all(2.0),
                                                                             child:
-                                                                                Image.network(
-                                                                              containerUsersRecord.photoUrl,
-                                                                              width: double.infinity,
-                                                                              height: double.infinity,
-                                                                              fit: BoxFit.cover,
+                                                                                ClipRRect(
+                                                                              borderRadius: BorderRadius.circular(10.0),
+                                                                              child: Image.network(
+                                                                                containerUsersRecord.photoUrl,
+                                                                                width: double.infinity,
+                                                                                height: double.infinity,
+                                                                                fit: BoxFit.cover,
+                                                                              ),
                                                                             ),
                                                                           ),
                                                                         ),
-                                                                      ),
-                                                                      Expanded(
-                                                                        child:
-                                                                            Padding(
-                                                                          padding: EdgeInsetsDirectional.fromSTEB(
-                                                                              8.0,
-                                                                              0.0,
-                                                                              0.0,
-                                                                              0.0),
+                                                                        Expanded(
                                                                           child:
-                                                                              Column(
-                                                                            mainAxisSize:
-                                                                                MainAxisSize.max,
-                                                                            crossAxisAlignment:
-                                                                                CrossAxisAlignment.start,
-                                                                            children: [
-                                                                              Text(
-                                                                                containerUsersRecord.displayName,
-                                                                                textAlign: TextAlign.start,
-                                                                                style: FlutterFlowTheme.of(context).bodyLarge.override(
-                                                                                      fontFamily: 'Plus Jakarta Sans',
-                                                                                      letterSpacing: 0.0,
-                                                                                    ),
-                                                                              ),
                                                                               Padding(
-                                                                                padding: EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
-                                                                                child: Text(
-                                                                                  listMessagesChatRecord.lastMessage,
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                                                                8.0,
+                                                                                0.0,
+                                                                                0.0,
+                                                                                0.0),
+                                                                            child:
+                                                                                Column(
+                                                                              mainAxisSize: MainAxisSize.max,
+                                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                                              children: [
+                                                                                Text(
+                                                                                  containerUsersRecord.displayName,
                                                                                   textAlign: TextAlign.start,
-                                                                                  style: FlutterFlowTheme.of(context).labelMedium.override(
+                                                                                  style: FlutterFlowTheme.of(context).bodyLarge.override(
                                                                                         fontFamily: 'Plus Jakarta Sans',
                                                                                         letterSpacing: 0.0,
                                                                                       ),
                                                                                 ),
-                                                                              ),
-                                                                              Row(
-                                                                                mainAxisSize: MainAxisSize.max,
-                                                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                children: [
-                                                                                  Row(
-                                                                                    mainAxisSize: MainAxisSize.max,
-                                                                                    children: [
-                                                                                      if (listMessagesChatRecord.user == currentUserReference)
-                                                                                        Padding(
-                                                                                          padding: EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 5.0, 0.0),
-                                                                                          child: Text(
-                                                                                            FFLocalizations.of(context).getText(
-                                                                                              'ji93kcxu' /* Me: */,
+                                                                                Padding(
+                                                                                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
+                                                                                  child: Text(
+                                                                                    listMessagesChatRecord.lastMessage,
+                                                                                    textAlign: TextAlign.start,
+                                                                                    style: FlutterFlowTheme.of(context).labelMedium.override(
+                                                                                          fontFamily: 'Plus Jakarta Sans',
+                                                                                          letterSpacing: 0.0,
+                                                                                        ),
+                                                                                  ),
+                                                                                ),
+                                                                                Row(
+                                                                                  mainAxisSize: MainAxisSize.max,
+                                                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                  children: [
+                                                                                    Row(
+                                                                                      mainAxisSize: MainAxisSize.max,
+                                                                                      children: [
+                                                                                        if (listMessagesChatRecord.user == currentUserReference)
+                                                                                          Padding(
+                                                                                            padding: EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 5.0, 0.0),
+                                                                                            child: Text(
+                                                                                              FFLocalizations.of(context).getText(
+                                                                                                'ji93kcxu' /* Me: */,
+                                                                                              ),
+                                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                    fontFamily: 'Plus Jakarta Sans',
+                                                                                                    color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                                    fontSize: 12.0,
+                                                                                                    letterSpacing: 0.0,
+                                                                                                  ),
                                                                                             ),
-                                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                          ),
+                                                                                        Padding(
+                                                                                          padding: EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
+                                                                                          child: Text(
+                                                                                            dateTimeFormat(
+                                                                                              'relative',
+                                                                                              listMessagesChatRecord.messageTime!,
+                                                                                              locale: FFLocalizations.of(context).languageCode,
+                                                                                            ),
+                                                                                            textAlign: TextAlign.start,
+                                                                                            style: FlutterFlowTheme.of(context).labelSmall.override(
                                                                                                   fontFamily: 'Plus Jakarta Sans',
-                                                                                                  color: FlutterFlowTheme.of(context).secondaryText,
-                                                                                                  fontSize: 12.0,
                                                                                                   letterSpacing: 0.0,
                                                                                                 ),
                                                                                           ),
                                                                                         ),
-                                                                                      Padding(
-                                                                                        padding: EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
-                                                                                        child: Text(
-                                                                                          dateTimeFormat(
-                                                                                            'relative',
-                                                                                            listMessagesChatRecord.messageTime!,
-                                                                                            locale: FFLocalizations.of(context).languageCode,
-                                                                                          ),
-                                                                                          textAlign: TextAlign.start,
-                                                                                          style: FlutterFlowTheme.of(context).labelSmall.override(
-                                                                                                fontFamily: 'Plus Jakarta Sans',
-                                                                                                letterSpacing: 0.0,
-                                                                                              ),
-                                                                                        ),
-                                                                                      ),
-                                                                                    ],
-                                                                                  ),
-                                                                                  Icon(
-                                                                                    Icons.chevron_right_rounded,
-                                                                                    color: FlutterFlowTheme.of(context).secondaryText,
-                                                                                    size: 24.0,
-                                                                                  ),
-                                                                                ].divide(SizedBox(width: 16.0)),
-                                                                              ),
-                                                                            ],
+                                                                                      ],
+                                                                                    ),
+                                                                                    Icon(
+                                                                                      Icons.chevron_right_rounded,
+                                                                                      color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                      size: 24.0,
+                                                                                    ),
+                                                                                  ].divide(SizedBox(width: 16.0)),
+                                                                                ),
+                                                                              ],
+                                                                            ),
                                                                           ),
                                                                         ),
-                                                                      ),
-                                                                    ],
+                                                                      ],
+                                                                    ),
                                                                   ),
                                                                 ),
                                                               ),
-                                                            ),
-                                                          );
-                                                        },
-                                                      ),
-                                                    );
-                                                  }),
+                                                            );
+                                                          },
+                                                        ),
+                                                      );
+                                                    }),
+                                                  ),
                                                 );
                                               },
                                             ),

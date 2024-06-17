@@ -60,15 +60,14 @@ class _UsersDetailsWidgetState extends State<UsersDetailsWidget>
           ),
         )),
       );
-      setState(() {
-        _model.chatref = _model.listchatfilter1
-            ?.where((e) =>
-                (e.userAuth?.id == widget.userRef?.id) ||
-                (e.userOth?.id == widget.userRef?.id))
-            .toList()
-            ?.first
-            ?.reference;
-      });
+      _model.chatref = _model.listchatfilter1
+          ?.where((e) =>
+              (e.userAuth?.id == widget.userRef?.id) ||
+              (e.userOth?.id == widget.userRef?.id))
+          .toList()
+          ?.first
+          ?.reference;
+      setState(() {});
     });
 
     animationsMap.addAll({

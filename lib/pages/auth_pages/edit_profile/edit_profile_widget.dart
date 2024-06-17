@@ -1,10 +1,14 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/modals/edit_profile_photo/edit_profile_photo_widget.dart';
+import '/flutter_flow/flutter_flow_google_map.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
+import '/flutter_flow/flutter_flow_place_picker.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/place.dart';
+import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +28,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
   late EditProfileModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  LatLng? currentUserLocationValue;
 
   @override
   void initState() {
@@ -31,6 +36,8 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
     _model = createModel(context, () => EditProfileModel());
 
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'editProfile'});
+    getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0), cached: true)
+        .then((loc) => setState(() => currentUserLocationValue = loc));
     _model.yourNameTextController ??=
         TextEditingController(text: currentUserDisplayName);
     _model.yourNameFocusNode ??= FocusNode();
@@ -47,8 +54,26 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
 
   @override
   Widget build(BuildContext context) {
+    if (currentUserLocationValue == null) {
+      return Container(
+        color: FlutterFlowTheme.of(context).primaryBackground,
+        child: Center(
+          child: SizedBox(
+            width: 20.0,
+            height: 20.0,
+            child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(
+                FlutterFlowTheme.of(context).primary,
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+
     return Scaffold(
       key: scaffoldKey,
+      resizeToAvoidBottomInset: false,
       backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
       appBar: AppBar(
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -288,62 +313,177 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                         ),
                   )),
                 ),
+                Expanded(
+                  child: Align(
+                    alignment: AlignmentDirectional(0.0, -1.0),
+                    child: Container(
+                      width: MediaQuery.sizeOf(context).width * 0.9,
+                      height: MediaQuery.sizeOf(context).height * 0.4,
+                      decoration: BoxDecoration(),
+                      child: AuthUserStreamWidget(
+                        builder: (context) => Builder(builder: (context) {
+                          final _googleMapMarker = () {
+                            if (_model.placePickerValue != null) {
+                              return _model.placePickerValue.latLng;
+                            } else if (currentUserDocument?.location != null) {
+                              return currentUserLocationValue;
+                            } else {
+                              return currentUserLocationValue;
+                            }
+                          }();
+                          return FlutterFlowGoogleMap(
+                            controller: _model.googleMapsController,
+                            onCameraIdle: (latLng) =>
+                                _model.googleMapsCenter = latLng,
+                            initialLocation: _model.googleMapsCenter ??= () {
+                              if (_model.placePickerValue != null) {
+                                return _model.placePickerValue.latLng;
+                              } else if (currentUserDocument?.location !=
+                                  null) {
+                                return currentUserDocument!.location!;
+                              } else {
+                                return currentUserLocationValue!;
+                              }
+                            }(),
+                            markers: [
+                              if (_googleMapMarker != null)
+                                FlutterFlowMarker(
+                                  _googleMapMarker.serialize(),
+                                  _googleMapMarker,
+                                ),
+                            ],
+                            markerColor: GoogleMarkerColor.violet,
+                            mapType: MapType.normal,
+                            style: GoogleMapStyle.standard,
+                            initialZoom: 14.0,
+                            allowInteraction: true,
+                            allowZoom: true,
+                            showZoomControls: true,
+                            showLocation: true,
+                            showCompass: false,
+                            showMapToolbar: false,
+                            showTraffic: false,
+                            centerMapOnMarkerTap: true,
+                          );
+                        }),
+                      ),
+                    ),
+                  ),
+                ),
                 Align(
-                  alignment: AlignmentDirectional(0.0, 0.05),
-                  child: FFButtonWidget(
-                    onPressed: () async {
-                      logFirebaseEvent('EDIT_PROFILE_SAVE_CHANGES_BTN_ON_TAP');
-
-                      await currentUserReference!.update(createUsersRecordData(
-                        displayName: _model.yourNameTextController.text,
-                      ));
-                      context.pop();
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            'You successfully updated your profile information!',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
+                  alignment: AlignmentDirectional(0.0, 0.0),
+                  child: Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 10.0),
+                    child: FlutterFlowPlacePicker(
+                      iOSGoogleMapsApiKey:
+                          'AIzaSyBeAUp6MPoZKX_-h3poVtUbXlIotXpg5SE',
+                      androidGoogleMapsApiKey:
+                          'AIzaSyBxv6uWz4M3lUuQk4ZHu8Pwem-xvggzjOc',
+                      webGoogleMapsApiKey:
+                          'AIzaSyCYYXZ9zrEXs_xdJl_-tVseNI3EGan36zo',
+                      onSelect: (place) async {
+                        setState(() => _model.placePickerValue = place);
+                      },
+                      defaultText: FFLocalizations.of(context).getText(
+                        'kn82q4oc' /* Select Location */,
+                      ),
+                      icon: Icon(
+                        Icons.place,
+                        color: FlutterFlowTheme.of(context).info,
+                        size: 16.0,
+                      ),
+                      buttonOptions: FFButtonOptions(
+                        width: 200.0,
+                        height: 40.0,
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        textStyle:
+                            FlutterFlowTheme.of(context).titleSmall.override(
                                   fontFamily: 'Plus Jakarta Sans',
-                                  color: Colors.white,
+                                  color: FlutterFlowTheme.of(context).info,
                                   letterSpacing: 0.0,
                                 ),
-                          ),
-                          duration: Duration(milliseconds: 4000),
-                          backgroundColor:
-                              FlutterFlowTheme.of(context).secondary,
+                        elevation: 2.0,
+                        borderSide: BorderSide(
+                          color: FlutterFlowTheme.of(context).primary,
+                          width: 1.0,
                         ),
-                      );
-                    },
-                    text: FFLocalizations.of(context).getText(
-                      'rr8ksatz' /* Save Changes */,
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
                     ),
-                    options: FFButtonOptions(
-                      height: 52.0,
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(44.0, 0.0, 44.0, 0.0),
-                      iconPadding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: FlutterFlowTheme.of(context).primary,
-                      textStyle:
-                          FlutterFlowTheme.of(context).titleMedium.override(
-                                fontFamily: 'Plus Jakarta Sans',
-                                letterSpacing: 0.0,
-                              ),
-                      elevation: 3.0,
-                      borderSide: BorderSide(
-                        color: Colors.transparent,
-                        width: 1.0,
+                  ),
+                ),
+                Align(
+                  alignment: AlignmentDirectional(0.0, -1.0),
+                  child: Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
+                    child: FFButtonWidget(
+                      onPressed: () async {
+                        logFirebaseEvent(
+                            'EDIT_PROFILE_SAVE_CHANGES_BTN_ON_TAP');
+                        if (_model.placePickerValue != null) {
+                          await currentUserReference!
+                              .update(createUsersRecordData(
+                            displayName: _model.yourNameTextController.text,
+                            location: _model.placePickerValue.latLng,
+                          ));
+                        } else {
+                          await currentUserReference!
+                              .update(createUsersRecordData(
+                            displayName: _model.yourNameTextController.text,
+                          ));
+                        }
+
+                        context.pop();
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              'You successfully updated your profile information!',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Plus Jakarta Sans',
+                                    color: Colors.white,
+                                    letterSpacing: 0.0,
+                                  ),
+                            ),
+                            duration: Duration(milliseconds: 4000),
+                            backgroundColor:
+                                FlutterFlowTheme.of(context).secondary,
+                          ),
+                        );
+                      },
+                      text: FFLocalizations.of(context).getText(
+                        'rr8ksatz' /* Save Changes */,
                       ),
-                      borderRadius: BorderRadius.circular(12.0),
-                      hoverColor: FlutterFlowTheme.of(context).accent1,
-                      hoverBorderSide: BorderSide(
+                      options: FFButtonOptions(
+                        height: 52.0,
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            44.0, 0.0, 44.0, 0.0),
+                        iconPadding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         color: FlutterFlowTheme.of(context).primary,
-                        width: 1.0,
+                        textStyle:
+                            FlutterFlowTheme.of(context).titleMedium.override(
+                                  fontFamily: 'Plus Jakarta Sans',
+                                  letterSpacing: 0.0,
+                                ),
+                        elevation: 3.0,
+                        borderSide: BorderSide(
+                          color: Colors.transparent,
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(12.0),
+                        hoverColor: FlutterFlowTheme.of(context).accent1,
+                        hoverBorderSide: BorderSide(
+                          color: FlutterFlowTheme.of(context).primary,
+                          width: 1.0,
+                        ),
+                        hoverTextColor:
+                            FlutterFlowTheme.of(context).primaryText,
+                        hoverElevation: 0.0,
                       ),
-                      hoverTextColor: FlutterFlowTheme.of(context).primaryText,
-                      hoverElevation: 0.0,
                     ),
                   ),
                 ),

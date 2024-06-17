@@ -42,7 +42,7 @@ class ProfileDriverPassengerModel
   LatLng? googleMapsCenter;
   final googleMapsController = Completer<GoogleMapController>();
   // State field(s) for PlacePicker widget.
-  var placePickerValue = FFPlace();
+  FFPlace placePickerValue = FFPlace();
   // State field(s) for orPassengeroOrDriver widget.
   FormFieldController<String>? orPassengeroOrDriverValueController;
 
